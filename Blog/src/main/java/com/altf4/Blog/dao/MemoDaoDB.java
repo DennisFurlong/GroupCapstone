@@ -10,6 +10,7 @@ import com.altf4.Blog.dto.Memo;
 import com.altf4.Blog.dto.Tag;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -63,10 +64,10 @@ public class MemoDaoDB implements MemoDao {
     }
 
     @Override
-    public List<Memo> getAllForDate(LocalDateTime time) {
-        LocalDateTime nextMonth = time.plusMonths(1);
+    public List<Memo> getAllForDate(LocalDate time) {
+        LocalDate nextMonth = time.plusMonths(1);
         String sql = "SELECT * FROM Memo WHERE UploadDate BETWEEN ? and ?";
-        return jdbc.query(sql, new MemoMapper(), time.toLocalDate(), nextMonth.toLocalDate());
+        return jdbc.query(sql, new MemoMapper(), time, nextMonth);
     }
 
     @Override

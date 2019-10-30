@@ -20,6 +20,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import com.altf4.Blog.dao.UserDao;
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -47,12 +50,17 @@ public class HomeController {
 
     @GetMapping("/home")
     public String displayRecentMemos(Model model) {
-        List<Memo> allPosts = memoDao.getAll();
-        List<Tag> allTags = tagDao.getAll();
-        List<User> allUsers = userDao.getAllUsers();
+
+        List<User> users = new ArrayList<>();
         List<Memo> recentPosts = new ArrayList<>();
 
         List<Memo> approvedPosts = memoDao.getAllApproved();
+        List<LocalDate> date = new ArrayList<>();
+
+        for(Memo post : approvedPosts){
+            date.add(post.getUploadDate().toLocalDate());
+            users.add(userDao.getUserById(post.getUser().getUserId()));
+        }
 
         for (Memo m : approvedPosts) {
             if (m.getBodyText().length() > 100) {
@@ -72,10 +80,9 @@ public class HomeController {
             }
         }
 
-        model.addAttribute("allPosts", allPosts);
-        model.addAttribute("allTags", allTags);
-        model.addAttribute("allCreators", allUsers);
         model.addAttribute("recentPosts", recentPosts);
+        model.addAttribute("date", date);
+        model.addAttribute("users", users);
 
         return "home";
     }

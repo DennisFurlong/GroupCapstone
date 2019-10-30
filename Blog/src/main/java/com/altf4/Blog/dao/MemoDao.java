@@ -3,6 +3,7 @@ package com.altf4.Blog.dao;
 import com.altf4.Blog.dto.User;
 import com.altf4.Blog.dto.Memo;
 import com.altf4.Blog.dto.Tag;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface MemoDao {
     public Memo get(int id);
     public List<Memo> getAll();
     public void delete(int id);
-    public List<Memo> getAllForDate(LocalDateTime time);
+    public List<Memo> getAllForDate(LocalDate time);
     public List<Memo> getAllNotApproved();
     public List<Memo> getAllApproved();
     public Memo addMemo(Memo m);

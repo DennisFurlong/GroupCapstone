@@ -78,24 +78,21 @@
                                                   type="submit">Logout</button>
                                         </form>
                                     </div>
-                                Show Posts On:
-                                <span class="badge badge-primary"></span>
-                                    <li th:each="date : ${date}" class="nav-item">
-                                            <a class="nav-link " th:href="@{/viewPostsOn(time=${date})}" th:text="${#temporals.monthName(date) + ' ' + #temporals.year(date)}"></a>
+                                
+                                <span class="badge badge-primary">Show Posts On:</span>
+                                    <li class="nav-item">
+                                            <a class="nav-link active">October 2019</a>
                                     </li>
-                                <br/>
-                                Show Posts By:
-                                <span class="badge badge-primary"></span>
-                                    <li th:each="user : ${users}" class="nav-item">
-                                            <a class="nav-link" th:href="@{/viewPostsBy(id=${user.userId})}" th:text="${user.username}"></a>
+                                    <li class="nav-item">
+                                            <a class="nav-link" href="#">September 2019</a>
                                     </li>
-
+                                Make these months with values as their dates
                             </ul>
         			
                         </div>
-                           <div class="col-md-4">
-                            <div  th:each="post : ${recentPosts}" class="list-group">
-                                <a th:href="@{/viewPost(id=${post.memoId})}" class="list-group-item list-group-item-action flex-column align-items-start active">
+                           <div class="col-md-8">
+                            <div th:each="post : ${post}" class="list-group">
+                                <a href="" class="list-group-item list-group-item-action flex-column align-items-start active">
                                   <div class="d-flex w-100 justify-content-between">
                                     <h4 class="mb-1"  th:text="${post.title}">List group item heading</h4>
                                        <small  th:text="${post.uploadDate}"></small>
@@ -107,11 +104,10 @@
                                 </a>
                             </div>
                         </div>
-        	</div>
-
+                    </div>
             <hr>
 
-        	<foter class="row">
+        	<footer class="row">
         		<div class="col-md-12">
         			<blockquote class="blockquote text-center">
         				<p class="mb-0">

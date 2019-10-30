@@ -25,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Autowired
     UserDetailsService userDetails;
-    
+
     @Autowired
     public void configureGlobalInMemory(AuthenticationManagerBuilder auth) throws Exception {
         auth

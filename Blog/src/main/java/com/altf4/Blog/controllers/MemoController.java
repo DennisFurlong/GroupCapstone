@@ -17,6 +17,7 @@ import com.altf4.Blog.dao.UserDao;
 import com.altf4.Blog.dto.Memo;
 import com.altf4.Blog.dto.Tag;
 import com.altf4.Blog.dto.User;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -50,6 +51,7 @@ public class MemoController {
     public String displayNewPost(Model model) {
         List<User> allUsers = userDao.getAllUsers();
         model.addAttribute("allUsers", allUsers);
+        
         return "newPost";
     }
 
@@ -67,6 +69,31 @@ public class MemoController {
         memoDao.addMemo(m);
 
         return "redirect:/newPost";
+    }
+    
+    @GetMapping("viewPostsOn")
+    public String viewPostsOn(Model model, String time){
+        
+        List<Memo> post = memoDao.getAllForDate(LocalDate.parse(time));
+        model.addAttribute("post", post);
+
+        return "viewPostsOn";
+    }
+    
+    @GetMapping("viewPostsBy")
+    public String viewPostsBy(Model model, Integer id){
+
+        List<Memo> allPosts = memoDao.getAllApproved();
+        List<Memo> posts = new ArrayList<>();
+        
+        for(Memo post : allPosts){
+            if(post.getUser().getUserId() == id){
+                posts.add(post);
+            }
+        }
+
+        model.addAttribute("post", posts);
+        return "viewPostsBy";
     }
     
     @GetMapping("viewPost")
